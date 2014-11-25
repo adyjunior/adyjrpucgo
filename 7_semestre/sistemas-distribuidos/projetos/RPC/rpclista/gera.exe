@@ -1,0 +1,4 @@
+rpcgen -k lista.x
+gcc -ansi cliente.c lista_clnt.c lista_xdr.c -o cliente
+gcc -ansi servidor.c lista_svc.c lista_xdr.c -o servidor
+

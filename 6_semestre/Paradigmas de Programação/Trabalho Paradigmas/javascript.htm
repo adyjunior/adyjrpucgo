@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Exemplo JavaScript</title>
+
+<link href="css/css.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" language="javascript" src="js/jquery-1.2.6.js"></script>
+<script type="text/javascript" language="javascript" src="js/jquery.maskedinput-1.2.1.js"></script>
+
+<script type="text/javascript" language="javascript">
+jQuery.noConflict();
+jQuery(function(jQuery){
+	jQuery("#telefone").mask("(99) 9999-9999");
+	jQuery("#dataNascimento").mask("99/99/9999");
+	jQuery("#cpf").mask("999.999.999-99");
+    
+});
+</script>
+
+</head>
+
+
+<body>
+
+<div class="full">
+<!--	<div class="topo-fixo"></div> -->
+    <div class="esq"></div>
+    <div class="meio">
+
+<h1 class="tituloInterna">Trabalho de Paradigmas</h1>
+<div class="boxFormContato">
+<form action="" onsubmit="return validaForm(this);" method="POST">
+	<div id="inputs">
+	<input type="hidden"></input>
+	<label>Nome:</label><input type="text" name="nome1"/>	<br/>
+	<label>E-mail:</label><input type="text" name="email"/>	<br/>
+	<label>Data de Nascimento:</label><input type="text" style="width:100px;" id="dataNascimento" name="dataNascimento"/>	<br/>
+	<label>Telefone:</label><input type="text" id="telefone" style="width:100px;" name="telefone"/> <br/> 	
+	<label id="idlblCpf">CPF:</label><input type="text" id="cpf" style="width:100px;" name="cpf"/>	<br/> 
+	<label>Cidade:</label><input type="text" name="cidade"/>	<br/> 
+	<label>Estados:</label> 
+	<select name="estado">
+		<option value="">Selecione</option>
+		<option value="ac">Acre</option>
+		<option value="al">Alagoas</option>
+		<option value="am">Amazonas</option>
+		<option value="ap">Amapá</option>
+		<option value="ba">Bahia</option>
+		<option value="ce">Ceará</option>
+		<option value="df">Distrito Federal</option>
+		<option value="es">Espírito Santo</option>
+		<option value="go">Goiás</option>
+		<option value="ma">Maranhão</option>
+		<option value="mt">Mato Grosso</option>
+		<option value="ms">Mato Grosso do Sul</option>
+		<option value="mg">Minas Gerais</option>
+		<option value="pa">Pará</option>
+		<option value="pb">Paraíba</option>
+		<option value="pr">Paraná</option>
+		<option value="pe">Pernambuco</option>
+		<option value="pi">Piauí</option>
+		<option value="rj">Rio de Janeiro</option>
+		<option value="rn">Rio Grande do Norte</option>
+		<option value="ro">Rondônia</option>
+		<option value="rs">Rio Grande do Sul</option>
+		<option value="rr">Roraima</option>
+		<option value="sc">Santa Catarina</option>
+		<option value="se">Sergipe</option>
+		<option value="sp">São Paulo</option>
+		<option value="to">Tocantins</option>
+	</select>	<br/>
+	<label>Mensagem:</label><textarea name="mensagem"></textarea> <br/>	
+	
+	<button>Enviar</button>
+	
+	</div>
+</form>
+</div>
+    </div>
+    <div class="dir"></div>
+</div>
+
+<script type="text/javascript" >
+
+function validaForm(form){
+
+try{
+	
+	if(form.nome1.value == '') {
+		alert('Por favor, digite seu nome!');
+		form.nome1.focus();
+		return false;
+	}else if(form.email.value == ''){
+		alert('Por favor, digite seu e-mail!');
+		form.email.focus();
+		return false;		
+	}else if(form.dataNascimento.value == ''){
+		alert('Por favor, digite sua data de nascimento!');
+		form.dataNascimento.focus();
+		return false;		
+	}else if(form.telefone.value == ''){
+		alert('Por favor, digite seu telefone!');
+		form.telefone.focus();
+		return false;		
+	}else if(form.cpf.value == ''){
+		alert('Por favor, digite seu cpf!');
+		form.cpf.focus();
+		return false;	
+	}else if(form.cidade.value == ''){
+		alert('Por favor, digite sua cidade!');
+		form.cidade.focus();
+		return false;		
+	}else if(form.estado.value == ''){
+		alert('Por favor, digite seu estado!');
+		form.estado.focus();
+		return false;		
+	}else{
+	
+	alert(" Contato : "+form.nome1.value+"\n E-mail : "+form.email.value+"\n Data de Nascimento : "+form.dataNascimento.value+"\n Telefone : "+form.telefone.value+"\n CPF : "+form.cpf.value+"\n Cidade : "+form.cidade.value+"\nEstado : "+form.estado.value+"\n\n Cadastrado com Sucesso.");
+	
+	}
+	
+	
+
+	}catch(err){alert(err);}
+
+return true;
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+
+<!-- ARQUIVO COM XML PADRÃO PARA O PROTOCOLO SOAP - USADO PARA PEDIR PERMISSÃO DE RECURSO-->
+<env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope"> 
+
+ <env:Header>
+  <n:tipo xmlns:n="http://192.168.0.131:5000/" env:mustUnderstand="true">
+   <n:servico>request</n:servico>
+   <n:ip>192.168.0.131</n:ip>
+   <n:valor>recurso</n:valor>
+  </n:tipo>
+ </env:Header>
+ 
+ <env:Body>
+ 
+ 
+  <p:dados xmlns:p="http://192.168.0.131:5000/" env:mustUnderstand="true">
+  
+   <p:id>2</p:id> 
+   <p:time>08/06/2012 - 10:11:50</p:time>
+   <p:permissaoRecurso>true</p:permissaoRecurso>
+
+  </p:dados>
+ </env:Body>
+
+</env:Envelope>

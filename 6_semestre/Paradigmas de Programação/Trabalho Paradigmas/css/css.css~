@@ -1,0 +1,50 @@
+
+
+body{ margin:0px; padding:0px;}
+.full{ float:left; clear:both; width:100%; height:1000px; position:relative;}
+.topo-fixo{float:left; clear:both; width:100%; height:150px; position:relative; background:#1E90FF;}
+.esq{ float:left; height:100%; width:20%; background:#CCC; position:relative;}
+.dir{ float:right; height:100%; width:20%; background:#CCC; position:relative;}
+.meio{ float:left; height:100%; width:60%; background:#F2F2F2; position:relative;}
+
+select { background-color: #B0E0E6;font:12px verdana, arial, helvetica, sans-serif;color:#003399;}
+input { background-color: #B0E0E6; font: 12px verdana, arial, helvetica, sans-serif;color:#003399;border:2px solid #000099;}
+textarea { background-color: #B0E0E6;font:12px verdana, arial, helvetica, sans-serif;color:#003399;}
+
+/*@ Formularios */
+input{vertical-align:middle;outline:none;}
+button{}
+button:hover{}
+
+.sizeSmall{width:30px;text-align:center;}
+.sizeSmall2{width:100px;}
+
+h1{margin:0;padding:0; font-size:18px; color:#B0E0E6; padding:0 0 20px 0}
+h1.tituloInterna{font-size:20px; color:#B0E0E6;padding:100px 0 10px 250px; background:none; text-transform:uppercase; border-bottom:1px solid #B0E0E6; margin:0 0 20px 0;}
+
+/*------------------------------------------*/
+.boxFormContato{width:550px;float:left;clear:both;font-size:1em;line-height:1em;margin:10px 0 100px 120px; background:#f9f9f9;-webkit-border-radius: 15px;-moz-border-radius: 15px;border-radius: 15px; border:1px #CCC solid; padding:15px;}
+#myform {/*border:1px solid #ccc;background:#f0f0f0;*/padding:20px;margin:5px 0 10px 20px;width:500px;line-height:130%;}
+#myform h3 {text-align:center;margin:0 0 10px 0;}
+
+/* http://www.quirksmode.org/css/forms.html */
+#inputs label, #inputs input, #inputs textarea, #inputs select {display: block;width: 300px;float: left;margin-bottom: 20px;font-family:Arial, Helvetica, sans-serif;font-size:12px;}
+#inputs input:focus, #inputs textarea:focus, #inputs select:focus {background:#f7f7f7;}
+#inputs label{padding-top:5px;}
+#inputs input, #inputs textarea, #inputs select {border:1px solid #c8c8c8;padding:5px;}
+#inputs select {width:200px;background:white;}
+#inputs textarea {height:80px;}
+#inputs label {text-align: right;width:70px;padding-right: 10px;}
+#inputs br {clear: left;}
+#inputs fieldset{font-size:10px;width: 230px;line-height:100%;padding:15px 15px 5px 15px;border:1px solid #c8c8c8;}
+#inputs fieldset input{display:inline;width: auto;float: left;margin: 0 5px 0 0;padding:0;font-family:Tahoma, Geneva, sans-serif;font-size:12px;border:none;}
+#inputs fieldset .linhaItemFieldset{width:220px;clear:both;}
+#inputs fieldset .linhaItemFieldset p{float:left;clear:both;margin-bottom:7px;}
+.btnButton{text-align:center;margin:10px 0 0 0;}
+.btnEnviarFormulario{width:114px;height:28px;background:url(images/btn-enviar-formulario.gif) no-repeat;border:0 none;cursor:pointer;}
+.btnEnviarFormulario span{display:none;}
+
+.btnEnviarFormContato{ background:url(images/btn-enviar.gif) no-repeat top; width:73px; height:27px; border:0; font-size:10px; color:#FFF;cursor:pointer; margin:0 0 0 5px;outline:none; float:left; text-indent:-9999999px;margin:0}
+button.btnEnviarFormContato:hover{ background:url(images/btn-enviar-hover.gif);}
+.btnEnviar{ float:left; text-align:center; margin:20px 0 0 200px;}
+

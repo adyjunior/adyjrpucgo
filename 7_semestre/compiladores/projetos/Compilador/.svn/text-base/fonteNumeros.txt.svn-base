@@ -1,0 +1,31 @@
+inicio
+	
+   a <- 10
+   b <- 5
+   
+   soma <- a+b
+   
+   X <- soma 
+   Y <-    X * 2 	
+	
+
+   se (Y > X .e. Y > soma)  
+   inicio
+       X <- X * 10
+       Escreva "X ERA MENOR"
+   fim   
+   senao
+   inicio
+       X <- 5
+       Escreva "X ERA MAIOR"
+   fim
+
+
+
+ 
+   Escreva " valor de X "        
+   Escreva X
+   Escreva "valor de Y "
+   Escreva Y   
+
+Fim 

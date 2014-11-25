@@ -1,0 +1,21 @@
+POST /Reservations HTTP/1.1
+Host: 192.168.0.134:5000
+Content-Type: application/soap+xml; charset="utf-8"
+Content-Length: nnnn
+
+<?xml version='1.0' ?>
+<env:Envelope xmlns:Envelope="http://www.w3.org/2003/05/soap-envelope">
+  <env:Header>
+    <n:tipo xmlns:n="http://192.168.0.131:5000/" env:mustUnderstand="true">
+      <n:servico>request</n:servico>
+      <n:ip>127.0.1.1</n:ip>
+      <n:valor>recurso</n:valor>
+    </n:tipo>
+  </env:Header>
+  <env:Body>
+    <p:dados xmlns:p="http://192.168.0.131:5000/" env:mustUnderstand="true">
+      <p:id>2</p:id>
+      <p:recurso>asasda</p:recurso>
+    </p:dados>
+  </env:Body>
+</env:Envelope>

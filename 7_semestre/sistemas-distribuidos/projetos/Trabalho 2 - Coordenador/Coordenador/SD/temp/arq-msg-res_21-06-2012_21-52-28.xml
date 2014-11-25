@@ -1,0 +1,28 @@
+HTTP/1.1 200 OK
+Content-Type: application/soap+xml; charset="utf-8"
+Content-Length: nnnn
+
+<?xml version='1.0' ?>
+<env:Envelope xmlns:Envelope="http://www.w3.org/2003/05/soap-envelope">
+  <env:Header>
+    <n:tipo xmlns:n="http://192.168.0.131:5000/" env:mustUnderstand="true">
+      <n:servico>response</n:servico>
+      <n:ip>192.168.0.134</n:ip>
+      <n:valor>atualizar</n:valor>
+    </n:tipo>
+  </env:Header>
+  <env:Body>
+    <p:dados xmlns:p="http://192.168.0.131:5000/">
+      <p:id>1</p:id>
+      <p:time>21/06/2012 - 21:52:28</p:time>
+      <p:listaRecursos>
+        <p:recurso>
+          <p:nome>recurso1.txt</p:nome>
+        </p:recurso>
+        <p:recurso>
+          <p:nome>recurso2.xml</p:nome>
+        </p:recurso>
+      </p:listaRecursos>
+    </p:dados>
+  </env:Body>
+</env:Envelope>
