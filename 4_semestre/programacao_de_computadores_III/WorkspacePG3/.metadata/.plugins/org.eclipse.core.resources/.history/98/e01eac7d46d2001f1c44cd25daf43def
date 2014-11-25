@@ -1,0 +1,37 @@
+#ifndef ULA_H_
+#define ULA_H_
+#include"Memoria.h"
+#include"Controle.h"
+namespace Capsula {
+
+class ULA {
+private:
+	Memoria aculumador;
+	Memoria mq;
+	Memoria mbr;
+	Controle ctrl;
+public:
+	ULA(){};
+	virtual ~ULA(){};
+	std::string add(std::string a,std::string b)const;
+	int sub(std::string a,std::string b)const;
+	int mul(std::string a,std::string b)const;
+	std::string Operacao_Or(std::string a,std::string b)const;
+	std::string Operacao_And(std::string a,std::string b)const;
+	std::string Operacao_Xor(std::string a,std::string b)const;
+	std::string Operacao_Not(std::string a)const;
+	void equal(std::string &a,std::string &b)const;
+	void setAculumador(Memoria ac){this->aculumador = ac;}
+	void setMq(Memoria mq){this->mq = mq;}
+	void setMbr(Memoria mbr);
+	Memoria getAcumulador()const{return this->aculumador;}
+	Memoria getMq()const{return this->mq;}
+	Memoria getMbr()const{return this->mbr;}
+	std::string operacaoMBR();
+
+
+};
+
+}
+
+#endif /* ULA_H_ */

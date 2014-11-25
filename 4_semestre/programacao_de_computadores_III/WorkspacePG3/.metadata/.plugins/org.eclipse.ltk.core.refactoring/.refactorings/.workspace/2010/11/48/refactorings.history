@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete 13 resources" deleteContents="false" description="Delete 13 resources" element1="/Arquitetura/Controle.cpp" element10="/Arquitetura/ULA.cpp" element11="/Arquitetura/ULA.h" element12="/Arquitetura/arquitetura.txt" element13="/Arquitetura/memoriaTexto.txt" element2="/Arquitetura/Controle.h" element3="/Arquitetura/Endereco.cpp" element4="/Arquitetura/Endereco.h" element5="/Arquitetura/MaquinaVirtual.cpp" element6="/Arquitetura/MaquinaVirtual.h" element7="/Arquitetura/MemoriaPrincipal.cpp" element8="/Arquitetura/MemoriaPrincipal.h" element9="/Arquitetura/ProgramaPrincipal.cpp" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="13" stamp="1290802434599"/>
+</session>

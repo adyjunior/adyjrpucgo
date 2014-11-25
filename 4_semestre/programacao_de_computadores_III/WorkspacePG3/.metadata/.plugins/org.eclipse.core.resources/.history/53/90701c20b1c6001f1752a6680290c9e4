@@ -1,0 +1,631 @@
+#include "Interface.h"
+using std::cin;
+using std::cout;
+using std::endl;
+
+namespace PC3 {
+
+void Interface::lerMatriz(Matriz &matriz)const{
+	int qLinhas = matriz.getQuantidadeLinhas();
+	int qColunas = matriz.getQuantidadeColunas();
+	int elemento;
+	for(int linha=0; linha < qLinhas; linha++){
+		for(int coluna=0; coluna < qColunas; coluna++){
+			try{
+				std::cout<<"MATRIZ[ "<<linha<<" , "<<coluna<<" ]= ";
+				std::cin>>elemento;
+				matriz.setElemento(linha,coluna,elemento);
+			}catch(int valorErro){
+				throw valorErro;
+			}
+		}
+	}
+}
+
+void Interface::escreverMatriz(Matriz const &matriz)const{
+	int qLinhas = matriz.getQuantidadeLinhas();
+	int qColunas = matriz.getQuantidadeColunas();
+	for(int linha=0; linha<qLinhas; linha++){
+		std::cout<<"|";
+		for(int coluna=0; coluna<qColunas;coluna++){
+			try{
+				std::cout<<std::left<<std::setw(3)<<matriz.getElemento(linha,coluna)<<" ";
+			}catch(int valorErro){
+				throw valorErro;
+			}
+		}
+		std::cout<<std::left<<std::setw(3)<<"|"<<std::endl;
+	}
+}
+
+Matriz *Interface::recuperar()const{
+	try{
+		cout<<"ARQUIVOS EXISTENTES:"<<endl;
+		system("dir /b DiretorioMatriz");
+		cout<<endl<<endl<<"QUAL ARQUIVO DESEJA RECUPERAR: ";
+		std::string nomeDoArquivoNoDisco;
+		cin>>nomeDoArquivoNoDisco;
+
+		return this->ctrl.processoRecuperar(nomeDoArquivoNoDisco);
+	}catch(int valorErro){
+		throw valorErro;
+	}
+}
+
+void Interface::menuPrincipal(){
+	int opcao;
+	do{
+		cout<<"Deseja que o arquivo de Erro seja Ingles ou portugues :"<<endl;
+		cout<<"( 2 ) PARA PORTUGUES"<<endl;
+		cout<<"( 3 ) PARA INGLES"<<endl;
+		cout<<"OPCAO : ";
+		cin>>opcao;
+		system("cls");
+	}while(opcao !=3 && opcao != 2);
+
+		int select=99;
+		while(select){
+			try{
+				this->erro = ERROS::getInstancia(opcao);
+
+				cout<<endl<<endl<<endl<<endl;
+				cout<<"                              \xC9\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xBB"<<endl;
+				cout<<"                              \xba        MENU MATRIZ       \xba"<<endl;
+				cout<<"                              \xba                          \xba"<<endl;
+				cout<<"                              \xcc\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xb9"<<endl;
+				cout<<"                              \xba  1 - MANIPULAR MATRIZES  \xba"<<endl;
+				cout<<"                              \xba  2 - OPERACOES MATRICIAIS\xba"<<endl;
+				cout<<"                              \xba  0 - SAIR                \xba"<<endl;
+				cout<<"                              \xc8\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbc"<<endl;
+
+
+				cout<<"  OPCAO: ";
+				cin>>select;
+
+				system("cls");
+
+				switch(select){
+					case 1:{
+						persistirMatrizes();
+						break;
+					}
+					case 2:{
+						operacoesMatrizes();
+						break;
+					}
+					default :{
+						if(select)
+							cout<<"OPCAO INVALIDA , DIGITE NOVAMENTE";
+						cout<<endl<<endl;
+						break;
+					}
+				}
+			}catch(int valorErro){
+				cout<<endl<<endl<<"ERRO ("<<valorErro<<") -> "<<erro->getErro(valorErro)<<endl<<endl;
+				system("pause");
+				system("cls");
+			}catch(std::logic_error a){
+					cout<<"ERRO -> "<<a.what()<<endl;
+					system("pause");
+					std::exit(1);
+			}
+
+		}
+
+}
+
+void Interface::persistirMatrizes(){
+
+	int select=99;
+	while(select){
+		try{
+			cout<<endl<<endl<<endl<<endl;
+			cout<<"                              \xC9\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xBB"<<endl;
+			cout<<"                              \xba        MANIPULAR MATRIZ        \xba"<<endl;
+			cout<<"                              \xba                                \xba"<<endl;
+			cout<<"                              \xcc\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xb9"<<endl;
+			cout<<"                              \xba  1 - GRAVAR MATRIZ             \xba"<<endl;
+			cout<<"                              \xba  2 - RECUPERAR MATRIZ          \xba"<<endl;
+			cout<<"                              \xba  3 - APAGAR MATRIZ             \xba"<<endl;
+			cout<<"                              \xba  0 - RETORNAR AO MENU PRINCIPAL\xba"<<endl;
+			cout<<"                              \xc8\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbc"<<endl;
+
+			cout<<"OPCAO  :";
+			cin>>select;
+
+			system("cls");
+
+			switch(select){
+				case 1:{
+					int linhaA,colunaA;
+					std::string nomeArquivo;
+					cout<<"GRAVAR MATRIZ"<<endl;
+					cout<<"DIGITE O NOME DO ARQUIVO QUE SERA SALVO : ";
+					cin>>nomeArquivo;
+					cout<<"Digite o numero de linhas da matriz  : ";
+					cin>>linhaA;
+					cout<<"Digite o numero de colunas da matriz  : ";
+					cin>>colunaA;
+					Matriz matSalvar(linhaA,colunaA);
+					this->lerMatriz(matSalvar);
+					this->ctrl.processoGravar(matSalvar,nomeArquivo);
+					cout<<endl<<"MATRIZ SALVA COM SUCESSO"<<endl<<endl;
+					break;
+
+				}
+				case 2:{
+					std::string nomeArquivo;
+					cout<<"RECUPERAR MATRIZ"<<endl<<endl;
+					Matriz *matRecuperada;
+					matRecuperada = this->recuperar();
+					cout<<"MATRIZ RECUPERADA : "<<endl<<endl;
+					this->escreverMatriz(*matRecuperada);
+					cout<<endl<<endl;
+					break;
+
+				}
+				case 3:{
+					cout<<"APAGAR MATRIZ"<<endl<<endl;
+					cout<<"ARQUIVOS EXISTENTES:"<<endl;
+					system("dir /b DiretorioMatriz");
+					cout<<endl<<endl<<"QUAL ARQUIVO DESEJA APAGAR :";
+					std::string nomeDoArquivoNoDisco;
+					cin>>nomeDoArquivoNoDisco;
+					this->ctrl.processoApagar(nomeDoArquivoNoDisco);
+					cout<<"MATRIZ APAGADA COM SUCESSO"<<endl<<endl;
+					break;
+
+				}
+				default: {
+					if(select)
+						cout<<"OPCAO INVALIDA , DIGITE NOVAMENTE";
+					cout<<endl<<endl;
+					break;
+				}
+
+			}
+		}catch(int valorErro){
+			cout<<endl<<endl<<"ERRO ("<<valorErro<<") -> "<<erro->getErro(valorErro)<<endl<<endl;
+			system("pause");
+			system("cls");
+		}
+
+
+	}
+
+}
+
+
+void Interface::operacoesMatrizes()const{
+try{
+/*
+	int linhaA,colunaA,linhaB,colunaB;
+
+	cout<<"Digite o numero de linhas da matriz A : ";
+	cin>>linhaA;
+	cout<<"Digite o numero de colunas da matriz A : ";
+	cin>>colunaA;
+	PC3::Matriz MA(linhaA,colunaA);
+	this->lerMatriz(MA);
+
+	cout<<"Digite o numero de linhas da matriz B : ";
+	cin>>linhaB;
+	cout<<"Digite o numero de colunas da matriz B : ";
+	cin>>colunaB;
+	PC3::Matriz MB(linhaB,colunaB);
+	this->lerMatriz(MB);
+*/
+
+
+	std::string nomeArquivo;
+	cout<<"RECUPERAR MATRIZ (A)"<<endl<<endl;
+	PC3::Matriz MA(1,1);
+	MA = this->recuperar();
+	if(MA.getQuantidadeLinhas() < 3)
+		throw (8);
+	cout<<"MATRIZ RECUPERADA : "<<endl<<endl;
+	this->escreverMatriz(MA);
+	cout<<endl;
+	system("pause");
+	system("cls");
+
+	cout<<endl<<endl<<"RECUPERAR MATRIZ (B)"<<endl<<endl;
+	PC3::Matriz MB(1,1);
+	MB = this->recuperar();
+	if(MB.getQuantidadeLinhas() < 3)
+		throw (8);
+	cout<<"MATRIZ RECUPERADA : "<<endl<<endl;
+	this->escreverMatriz(MB);
+
+
+
+	PC3::Matriz MC(1,1);
+
+	int select=99;
+	while(select){
+
+		system("pause");
+		system("cls");
+		cout<<endl<<endl<<endl<<endl;
+		cout<<"                              \xC9\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xBB"<<endl;
+		cout<<"                              \xba         OPERACAO MATRIZES        \xba"<<endl;
+		cout<<"                              \xba                                  \xba"<<endl;
+		cout<<"                              \xcc\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xb9"<<endl;
+		cout<<"                              \xba  01 - ADICAO                     \xba"<<endl;
+		cout<<"                              \xba  02 - SUBTRACAO                  \xba"<<endl;
+		cout<<"                              \xba  03 - MULTIPLICACAO              \xba"<<endl;
+		cout<<"                              \xba  04 - MATRIZES IGUAIS            \xba"<<endl;
+		cout<<"                              \xba  05 - MATRIZES DIFERENTES        \xba"<<endl;
+		cout<<"                              \xba  06 - TRIANGULAR SUPERIOR        \xba"<<endl;
+		cout<<"                              \xba  07 - TRIANGULAR INFERIOR        \xba"<<endl;
+		cout<<"                              \xba  08 - SIMETRICA                  \xba"<<endl;
+		cout<<"                              \xba  09 - ANTI-SIMETRICA             \xba"<<endl;
+		cout<<"                              \xba  10 - IDENTIDADE                 \xba"<<endl;
+		cout<<"                              \xba  11 - TRANSPOSTA                 \xba"<<endl;
+		cout<<"                              \xba  12 - PERMUTACAO                 \xba"<<endl;
+		cout<<"                              \xba  13 - MULTIPLICACAO POR K        \xba"<<endl;
+		cout<<"                              \xba  14 - ORTOGONAL                  \xba"<<endl;
+		cout<<"                              \xba  15 - POTENCIACAO DE MATRIZ      \xba"<<endl;
+		cout<<"                              \xba  0  - RETORNAR AO MENU PRINCIPAL \xba"<<endl;
+		cout<<"                              \xc8\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbc"<<endl<<endl;
+
+		cout<<"  OPCAO: ";
+		cin>>select;
+
+		system("cls");
+
+		switch(select){
+			case 1:{
+				try{
+					cout<<"ADICAO DE MATRIZES"<<endl;
+					MC = MA + MB;
+					cout<<"MATRIZ A :"<<endl;
+					this->escreverMatriz(MA);
+					cout<<endl<<"MATRIZ B : "<<endl;
+					this->escreverMatriz(MB);
+					cout<<endl<<"MATRIZ RESULTANTE : "<<endl;
+					this->escreverMatriz(MC);
+					cout<<endl<<endl;
+					break;
+
+				}catch(int valorErro){
+					cout<<endl<<endl<<"ERRO ("<<valorErro<<") -> "<<erro->getErro(valorErro);
+				}
+			}
+			case 2:{
+				try{
+					cout<<"SUBTRACAO DE MATRIZES"<<endl;
+					MC = MA - MB;
+					cout<<"MATRIZ A :"<<endl;
+					this->escreverMatriz(MA);
+					cout<<endl<<"MATRIZ B : "<<endl;
+					this->escreverMatriz(MB);
+					cout<<endl<<"MATRIZ RESULTANTE : "<<endl;
+					this->escreverMatriz(MC);
+					cout<<endl<<endl;
+					break;
+				}catch(int valorErro){
+					cout<<endl<<endl<<"ERRO ("<<valorErro<<") -> "<<erro->getErro(valorErro);
+				}
+			}
+			case 3:{
+				try{
+					cout<<"MULTIPLICACAO DE MATRIZES"<<endl;
+					MC = MA * MB;
+					cout<<"MATRIZ A :"<<endl;
+					this->escreverMatriz(MA);
+					cout<<endl<<"MATRIZ B : "<<endl;
+					this->escreverMatriz(MB);
+					cout<<endl<<"MATRIZ RESULTANTE : "<<endl;
+					this->escreverMatriz(MC);
+					cout<<endl<<endl;
+					break;
+				}catch(int valorErro){
+					cout<<endl<<endl<<"ERRO ("<<valorErro<<") -> "<<erro->getErro(valorErro);
+				}
+			}
+			case 4:{
+				try{
+					cout<<"COMPARAR SE MATRIZES SAO IGUAIS"<<endl;
+					cout<<"MATRIZ A :"<<endl;
+					this->escreverMatriz(MA);
+					cout<<endl<<"MATRIZ B : "<<endl;
+					this->escreverMatriz(MB);
+					cout<<endl<<endl;
+					if(MA == MB)
+						cout<<"MATRIZES SAO IGUAIS"<<endl;
+					else
+						cout<<"MATRIZES NAO SAO IGUAIS"<<endl;
+					cout<<endl<<endl;
+					break;
+				}catch(int valorErro){
+					cout<<endl<<endl<<"ERRO ("<<valorErro<<") -> "<<erro->getErro(valorErro);
+				}
+
+			}
+			case 5:{
+				try{
+					cout<<"COMPARAR SE MATRIZES SAO DIFERENTES"<<endl;
+					cout<<"MATRIZ A :"<<endl;
+					this->escreverMatriz(MA);
+					cout<<endl<<"MATRIZ B : "<<endl;
+					this->escreverMatriz(MB);
+					cout<<endl<<endl;
+					if(MA != MB)
+						cout<<"MATRIZES SAO DIFERENTES"<<endl;
+					else
+						cout<<"MATRIZES NAO SAO DIFERENTES"<<endl;
+					cout<<endl<<endl;
+					break;
+				}catch(int valorErro){
+					cout<<endl<<endl<<"ERRO ("<<valorErro<<") -> "<<erro->getErro(valorErro);
+				}
+
+			}
+			case 6:{
+				try{
+					cout<<"SE MATRIZ EH TRIANGULAR SUPERIOR"<<endl;
+					cout<<"MATRIZ A :"<<endl;
+					this->escreverMatriz(MA);
+					cout<<endl;
+					if(MA.eMatrizTriangularSuperior())
+						cout<<"MATRIZ (A) EH TRIANGULAR SUPERIOR"<<endl;
+					else
+						cout<<"MATRIZ (A) NAO EH TRIANGULAR SUPERIOR"<<endl;
+					cout<<endl<<endl;
+
+					cout<<"MATRIZ B : "<<endl;
+					this->escreverMatriz(MB);
+					cout<<endl;
+					if(MB.eMatrizTriangularSuperior())
+						cout<<"MATRIZ (B) EH TRIANGULAR SUPERIOR"<<endl;
+					else
+						cout<<"MATRIZ (B) NAO EH TRIANGULAR SUPERIOR"<<endl;
+					cout<<endl<<endl;
+					break;
+				}catch(int valorErro){
+					cout<<endl<<endl<<"ERRO ("<<valorErro<<") -> "<<erro->getErro(valorErro);
+				}
+
+			}
+			case 7:{
+				try{
+					cout<<"SE MATRIZ EH TRIANGULAR INFERIOR"<<endl;
+					cout<<"MATRIZ A :"<<endl;
+					this->escreverMatriz(MA);
+					cout<<endl;
+					if(MA.eMatrizTriangularInferior())
+						cout<<"MATRIZ (A) EH TRIANGULAR INFERIOR"<<endl;
+					else
+						cout<<"MATRIZ (A) NAO EH TRIANGULAR INFERIOR"<<endl;
+					cout<<endl<<endl;
+
+					cout<<"MATRIZ B : "<<endl;
+					this->escreverMatriz(MB);
+					cout<<endl;
+					if(MB.eMatrizTriangularInferior())
+						cout<<"MATRIZ (B) EH TRIANGULAR INFERIOR"<<endl;
+					else
+						cout<<"MATRIZ (B) NAO EH TRIANGULAR INFERIOR"<<endl;
+					cout<<endl<<endl;
+					break;
+				}catch(int valorErro){
+					cout<<endl<<endl<<"ERRO ("<<valorErro<<") -> "<<erro->getErro(valorErro);
+				}
+
+			}
+			case 8:{
+				try{
+					cout<<"SE MATRIZ EH SIMETRICA"<<endl;
+					cout<<"MATRIZ A :"<<endl;
+					this->escreverMatriz(MA);
+					cout<<endl;
+					if(MA.eMatrizSimetrica())
+						cout<<"MATRIZ (A) EH SIMETRICA"<<endl;
+					else
+						cout<<"MATRIZ (A) NAO EH SIMETRICA"<<endl;
+					cout<<endl<<endl;
+
+					cout<<"MATRIZ B : "<<endl;
+					this->escreverMatriz(MB);
+					cout<<endl;
+					if(MB.eMatrizSimetrica())
+						cout<<"MATRIZ (B) EH SIMETRICA"<<endl;
+					else
+						cout<<"MATRIZ (B) NAO EH SIMETRICA"<<endl;
+					cout<<endl<<endl;
+					break;
+			}catch(int valorErro){
+				cout<<endl<<endl<<"ERRO ("<<valorErro<<") -> "<<erro->getErro(valorErro);
+			}
+
+			}
+			case 9:{
+				try{
+					cout<<"SE MATRIZ EH ANTI-SIMETRICA SIMETRICA"<<endl;
+					cout<<"MATRIZ A :"<<endl;
+					this->escreverMatriz(MA);
+					cout<<endl;
+					if(MA.eMatrizAntiSimetrica())
+						cout<<"MATRIZ (A) EH ANTI-SIMETRICA"<<endl;
+					else
+						cout<<"MATRIZ (A) NAO EH ANTI-SIMETRICA"<<endl;
+					cout<<endl<<endl;
+
+					cout<<"MATRIZ B : "<<endl;
+					this->escreverMatriz(MB);
+					cout<<endl;
+					if(MB.eMatrizAntiSimetrica())
+						cout<<"MATRIZ (B) EH ANTI-SIMETRICA"<<endl;
+					else
+						cout<<"MATRIZ (B) NAO EH ANTI-SIMETRICA"<<endl;
+					cout<<endl<<endl;
+					break;
+				}catch(int valorErro){
+					cout<<endl<<endl<<"ERRO ("<<valorErro<<") -> "<<erro->getErro(valorErro);
+				}
+
+			}
+			case 10:{
+				try{
+					cout<<"SE MATRIZ EH IDENTIDADE"<<endl;
+					cout<<"MATRIZ A :"<<endl;
+					this->escreverMatriz(MA);
+					cout<<endl;
+					if(MA.eMatrizIdentidade())
+						cout<<"MATRIZ (A) EH IDENTIDADE"<<endl;
+					else
+						cout<<"MATRIZ (A) NAO EH IDENTIDADE"<<endl;
+					cout<<endl<<endl;
+
+					cout<<"MATRIZ B : "<<endl;
+					this->escreverMatriz(MB);
+					cout<<endl;
+					if(MB.eMatrizIdentidade())
+						cout<<"MATRIZ (B) EH IDENTIDADE"<<endl;
+					else
+						cout<<"MATRIZ (B) NAO EH IDENTIDADE"<<endl;
+					cout<<endl<<endl;
+					break;
+				}catch(int valorErro){
+					cout<<endl<<endl<<"ERRO ("<<valorErro<<") -> "<<erro->getErro(valorErro);
+				}
+
+			}
+			case 11:{
+				try{
+					cout<<"MATRIZ TRANSPOSTA"<<endl;
+					cout<<"MATRIZ A :"<<endl;
+					this->escreverMatriz(MA);
+					cout<<"MATRIZ TRANSPOSTA DE (A)"<<endl;
+					this->escreverMatriz(*MA.matrizTransposta());
+
+					cout<<endl<<"MATRIZ B : "<<endl;
+					this->escreverMatriz(MB);
+					cout<<"MATRIZ TRANSPOSTA DE (B)"<<endl;
+					this->escreverMatriz(*MB.matrizTransposta());
+					cout<<endl<<endl;
+					break;
+				}catch(int valorErro){
+					cout<<endl<<endl<<"ERRO ("<<valorErro<<") -> "<<erro->getErro(valorErro);
+				}
+
+			}
+			case 12:{
+				try{
+					cout<<"SE MATRIZ EH DE PERMUTACAO"<<endl;
+					cout<<"MATRIZ A :"<<endl;
+					this->escreverMatriz(MA);
+					cout<<endl;
+					if(MA.eMatrizDePermutacao())
+						cout<<"MATRIZ (A) EH DE PERMUTACAO"<<endl;
+					else
+						cout<<"MATRIZ (A) NAO EH DE PERMUTACAO"<<endl;
+					cout<<endl<<endl;
+
+					cout<<"MATRIZ B : "<<endl;
+					this->escreverMatriz(MB);
+					cout<<endl;
+					if(MB.eMatrizDePermutacao())
+						cout<<"MATRIZ (B) EH DE PERMUTACAO"<<endl;
+					else
+						cout<<"MATRIZ (B) NAO EH DE PERMUTACAO"<<endl;
+					cout<<endl<<endl;
+					break;
+				}catch(int valorErro){
+					cout<<endl<<endl<<"ERRO ("<<valorErro<<") -> "<<erro->getErro(valorErro);
+				}
+
+			}
+			case 13:{
+				try{
+					cout<<"MULTIPLICAR MATRIZ POR K"<<endl;
+					cout<<"DIGITE K : ";int k=0;
+					cin>>k;
+					cout<<"MATRIZ A :"<<endl;
+					this->escreverMatriz(MA);
+					cout<<"MATRIZ (A) MULTIPLICADA POR K"<<endl;
+					this->escreverMatriz(*MA.multiplicarPorK(k));
+
+					cout<<endl<<"MATRIZ B : "<<endl;
+					this->escreverMatriz(MB);
+					cout<<"MATRIZ (B) MULTIPLICADA POR K"<<endl;
+					this->escreverMatriz(*MB.multiplicarPorK(k));
+					cout<<endl<<endl;
+					break;
+				}catch(int valorErro){
+					cout<<endl<<endl<<"ERRO ("<<valorErro<<") -> "<<erro->getErro(valorErro);
+				}
+
+			}
+			case 14:{
+				try{
+					cout<<"SE MATRIZ EH ORTAGONAL"<<endl;
+					cout<<"MATRIZ A :"<<endl;
+					this->escreverMatriz(MA);
+					cout<<endl;
+					if(MA.eMatrizOrtagonal())
+						cout<<"MATRIZ (A) EH ORTAGONAL"<<endl;
+					else
+						cout<<"MATRIZ (A) NAO EH ORTAGONAL"<<endl;
+					cout<<endl<<endl;
+
+					cout<<"MATRIZ B : "<<endl;
+					this->escreverMatriz(MB);
+					cout<<endl;
+					if(MB.eMatrizOrtagonal())
+						cout<<"MATRIZ (B) EH ORTAGONAL"<<endl;
+					else
+						cout<<"MATRIZ (B) NAO EH ORTAGONAL"<<endl;
+					cout<<endl<<endl;
+					break;
+				}catch(int valorErro){
+					cout<<endl<<endl<<"ERRO ("<<valorErro<<") -> "<<erro->getErro(valorErro);
+				}
+
+			}
+			case 15:{
+				try{
+					cout<<"POTENCIACAO DE MATRIZES"<<endl;
+					cout<<"DIGITE O EXPONENCIAL A SER ELEVADO : ";int k=0;
+					cin>>k;
+					cout<<"MATRIZ A :"<<endl;
+					this->escreverMatriz(MA);
+					cout<<"MATRIZ (A) POTENCIALIZADA"<<endl;
+					Matriz *potA = MA.potenciaMatriz(k);
+					this->escreverMatriz(*potA);
+
+					cout<<endl<<"MATRIZ B : "<<endl;
+					this->escreverMatriz(MB);
+					cout<<"MATRIZ (B) POTENCIALIZADA"<<endl;
+					Matriz *potB = MB.potenciaMatriz(k);
+					this->escreverMatriz(*potB);
+					cout<<endl<<endl;
+					break;
+				}catch(int valorErro){
+					cout<<endl<<endl<<"ERRO ("<<valorErro<<") -> "<<erro->getErro(valorErro);
+				}
+
+			}
+			default: {
+				if(select)
+				cout<<"OPCAO ERRADA , DIGITE NOVAMENTE";
+				cout<<endl<<endl;
+				break;
+			}
+
+		}
+
+	}
+
+}catch(int valorErro){
+	throw valorErro;
+}
+
+
+
+}
+
+
+
+}

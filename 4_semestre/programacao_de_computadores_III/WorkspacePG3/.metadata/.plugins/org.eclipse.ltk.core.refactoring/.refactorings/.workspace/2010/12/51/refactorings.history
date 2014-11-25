@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete 5 resources" deleteContents="false" description="Delete 5 resources" element1="/ArvoreAVL/arvore.cpp" element2="/ArvoreAVL/arvore.h" element3="/ArvoreAVL/dado.h" element4="/ArvoreAVL/main.cpp" element5="/ArvoreAVL/no.h" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="5" stamp="1292374896384"/>
+</session>

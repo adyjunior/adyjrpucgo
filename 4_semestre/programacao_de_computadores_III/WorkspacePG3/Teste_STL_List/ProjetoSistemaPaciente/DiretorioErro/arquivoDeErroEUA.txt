@@ -1,0 +1,10 @@
+9
+Array was not dynamically allocated
+Row or column outside the valid range
+Amount of line and / or different columns
+Error address pointer in the parameter Array
+File can not be opened
+The Array isn't square
+Ìmposible to perform operation, Exponential negative
+File can not be deleted
+Only arrays with more than two lines can be operated

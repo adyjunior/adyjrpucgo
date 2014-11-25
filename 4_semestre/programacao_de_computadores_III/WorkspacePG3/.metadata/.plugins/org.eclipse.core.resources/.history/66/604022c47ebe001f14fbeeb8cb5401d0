@@ -1,0 +1,28 @@
+#include "ERROS.h"
+#include <fstream>
+#include<iostream>
+namespace PC3 {
+
+ERROS::ERROS() {
+
+	std::ifstream arquivo("arquivoDeErro.txt");
+
+	if(arquivo.is_open())return;
+
+	arquivo >> ERROS::tamanho;
+
+	this->strErro[tamanho];
+
+	for(int i=0;i < ERROS::tamanho;i++)
+		arquivo >> this->strErro[i];
+
+	arquivo.close();
+
+
+}
+
+ERROS * ERROS::instancia=0;
+
+
+
+}

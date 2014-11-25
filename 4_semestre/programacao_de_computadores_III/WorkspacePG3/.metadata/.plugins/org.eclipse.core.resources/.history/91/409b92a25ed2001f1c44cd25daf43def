@@ -1,0 +1,194 @@
+#include "ULA.h"
+
+namespace Capsula {
+
+std::string ULA::operacaoMBR(){
+
+	std::string word =  mbr.getWord();
+
+	std::string segmento_1,segmento_2;
+	segmento_1 = word.substr(0,20);
+	segmento_2 = word.substr(20,20);
+
+	Memoria ibrAux;
+	ibrAux.setWord(segmento_2);// (20:39)
+
+	ctrl.setIbr(ibrAux); // SEGUNDA PALAVRA FICA GUARDADA EM IBR;
+
+	return segmento_1; //RETORNA A PRIMEIRA PALAVRA;
+
+}
+
+std::string ULA::Operacao_And(std::string const &a,std::string const &b)const{
+
+	int tam=0;
+	std::string And;
+
+	if(a.size() != b.size())this->equal(a,b);
+
+	tam = a.size();
+
+	for(int i=0;i < tam;i++){
+		if(a.substr(i,1)== "0" || b.substr(i,1) == "0")
+			And[i] = '0';
+		else
+			And[i] = '1';
+
+	}
+
+	return And;
+
+}
+
+std::string ULA::Operacao_Or(std::string const &a,std::string const &b)const{
+	int tam=0;
+	std::string Or;
+
+	if(a.size() != b.size())this->equal(a,b);
+
+	tam = a.size();
+
+	for(int i=0;i < tam;i++){
+		if(a.substr(i,1)== "1" || b.substr(i,1) == "1")
+			Or[i] = '1';
+		else
+			Or[i] = '0';
+
+	}
+
+	return Or;
+
+}
+
+std::string ULA::Operacao_Xor(std::string const &a,std::string const &b)const{
+	int tam=0;
+	std::string Xor;
+
+	if(a.size() != b.size())this->equal(a,b);
+
+	tam = a.size();
+
+	for(int i=0;i < tam;i++){
+		if(a.substr(i,1) == b.substr(i,1))
+			Xor[i] = '0';
+		else
+			Xor[i] = '1';
+
+	}
+
+	return Xor;
+
+}
+
+
+
+std::string ULA::Operacao_Not(std::string const &a)const{
+	int tam=0;
+	std::string Not;
+
+	tam = a.size();
+
+	for(int i=0;i < tam;i++){
+		if(a.substr(i,1) == "1")
+			Not[i] = '0';
+		else
+			Not[i] = '1';
+	}
+
+	return Not;
+
+}
+
+std::string ULA::add(std::string const &a,std::string const &b)const{
+
+	if(a.size() != b.size())this->equal(a,b);
+
+	int tam=0;
+	bool carry=false;
+	std::string Add;
+	tam = a.size();
+
+	Add = a;
+
+	for(int i=tam;i >= 0;i--){
+		if(!carry){
+			if(a.substr(i,1)== "0" && b.substr(i,1) == "0"){
+				Add[i] = '0';
+				carry = false;
+			} else if(a.substr(i,1) != b.substr(i,1)){
+				Add[i] = '1';
+				carry = false;
+			}else if(a.substr(i,1)== "1" && b.substr(i,1) == "1") {
+				Add[i] = '0';
+				carry = true;
+
+			}
+		}
+		else{
+			if(a.substr(i,1)== "0" && b.substr(i,1) == "0"){
+				Add[i] = '1';
+				carry = false;
+			} else if(a.substr(i,1) != b.substr(i,1)){
+				Add[i] = '0';
+				carry = true;
+			}else if(a.substr(i,1)== "1" && b.substr(i,1) == "1"){
+				Add[i] = '1';
+				carry = true;
+			}
+
+
+		}
+
+	}
+
+	return Add;
+
+}
+
+
+std::string ULA::sub(std::string const &a,std::string const &b)const{
+
+}
+
+
+void ULA::equal(std::string &a,std::string &b)const{
+	std::string resultante ;
+	int diferenca,tam;
+	if(a.size() > b.size()){
+
+		diferenca = a.size() - b.size();
+		tam = a.size();
+		resultante = a;
+
+		for(int i=0;i < tam;i++){
+			if(i < diferenca)
+				resultante[i] = '0';
+			else
+				resultante[i] = b[i-diferenca];
+		}
+
+		b = resultante;
+
+	}
+	else{
+
+		diferenca = b.size() - a.size();
+
+		tam = b.size();
+		resultante = b;
+		for(int i=0;i < tam;i++){
+			if(i < diferenca)
+				resultante[i] = '0';
+			else
+				resultante[i] = a[i-diferenca];
+	}
+		a = resultante;
+
+	}
+
+
+
+
+}
+
+}

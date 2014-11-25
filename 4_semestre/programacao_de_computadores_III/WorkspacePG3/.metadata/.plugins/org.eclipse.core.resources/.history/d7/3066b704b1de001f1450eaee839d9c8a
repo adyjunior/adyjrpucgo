@@ -1,0 +1,76 @@
+#include "Paciente.h"
+#include<iostream>
+
+namespace PSP {
+
+
+void Paciente::setDataDeNascimento(int dia,int mes,int ano){
+	try{
+		this->dataDeNascimento.set(dia,mes,ano);
+	}catch(int valorErro){
+			throw valorErro;
+		}
+}
+
+void Paciente::setDataDeNascimento(std::string const & data){
+	try{
+		this->dataDeNascimento.setDataStr(data);
+	}catch(int valorErro){
+			throw valorErro;
+		}
+}
+
+void Paciente::setNumeroCPF(long long numeroCPF){
+	try{
+		this->numeroCPF.set(numeroCPF);
+	}catch(int valorErro){
+		throw valorErro;
+	}
+}
+
+
+std::string Paciente::desmaterializar()const{
+	try{
+		CadeiaCaracteres::CDC conversao;
+
+		std::string strCPF = conversao.converteInteiroLongoLongoParaStr(this->getNumeroCPF());
+		std::string strTelefone = conversao.converteInteiroLongoParaStr(this->telefone);
+
+		std::string linha;
+
+		linha = nome + ";" + strTelefone + ";" +  endereco + ";" + strCPF + ";" + dataDeNascimento.getDataStr() + ";" + email;
+
+		return linha;
+	}catch(int valorErro){
+		throw valorErro;
+	}
+}
+
+void Paciente::materializar(std::string const &linha){
+
+	try{
+		CadeiaCaracteres::CDC conversao;
+
+		unsigned int pos=0;
+		//int d,m,a;
+
+		this->nome = conversao.buscarSubString(linha,pos,';');
+		this->telefone = conversao.converteStrParaInteiroLongo(conversao.buscarSubString(linha,pos,';'));
+		this->endereco = conversao.buscarSubString(linha,pos,';');
+		this->setNumeroCPF( conversao.converteStrParaInteiroLongoLongo(conversao.buscarSubString(linha,pos,';')) );
+		this->setDataDeNascimento( conversao.buscarSubString(linha,pos,';') );
+		this->email = conversao.buscarSubString(linha,pos,';');
+
+		//d = conversao.converteStrParaInteiro(data.substr(0,2));
+		//m = conversao.converteStrParaInteiro(data.substr(2,2));
+		//a =  conversao.converteStrParaInteiro(data.substr(4,4));
+
+		//this->setDataDeNascimento(d,m,a);
+
+	}catch(int valorErro){
+		throw valorErro;
+	}
+
+}
+
+}

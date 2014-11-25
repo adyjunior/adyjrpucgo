@@ -1,0 +1,366 @@
+#include "Matriz.h"
+
+namespace PC3 {
+
+Matriz::Matriz(int nLinhas, int nColunas) {
+	if(nLinhas<=0 || nColunas<=0){//verifica se e menor ou igual a zero
+		quantidadeDeLinhas = quantidadeDeColunas = 0;
+		matriz=0;
+		return;//termina o metodo//estarta um exeção//valores incondisentes
+	}
+	quantidadeDeLinhas = nLinhas;
+	quantidadeDeColunas = nColunas;
+	try{
+		matriz = new int[nLinhas*nColunas];
+	}catch(std::bad_alloc&){//estudar bad alloc//sem espaço de memoria
+		throw (0);//grito de erro
+	}
+}
+
+
+Matriz::~Matriz() {
+	if(matriz) delete[] matriz;// delete[] porque e vetor
+	//nao se tem tratamento de exeção no destrutor
+}
+
+int Matriz::getElemento(int linha, int coluna)const{
+	if(	linha<0 || coluna<0 || linha>=quantidadeDeLinhas ||	coluna>=quantidadeDeColunas)
+		throw (1);
+	return *(matriz+(linha*quantidadeDeColunas+coluna));
+}
+
+void Matriz::setElemento(int linha, int coluna, int elemento){
+	if(	linha<0 || coluna<0 || linha>=quantidadeDeLinhas ||	coluna>=quantidadeDeColunas)
+		throw (1);
+	*(matriz+(linha*quantidadeDeColunas+coluna))=elemento;
+}
+
+
+void Matriz::operator= (Matriz *matrizP){
+	try{
+		if(matrizP==0)throw (3);
+		if(matriz)delete[] matriz;
+		quantidadeDeLinhas=matrizP->getQuantidadeLinhas();
+		quantidadeDeColunas=matrizP->getQuantidadeColunas();
+		matriz = matrizP->matriz;
+		matrizP->matriz = 0;
+		delete matrizP;
+
+	}catch(int valorErro){
+		throw valorErro;
+	}
+}
+
+bool Matriz::operator ==(Matriz const &matriz)const{
+	try{
+		if(		matriz.getQuantidadeLinhas()!= quantidadeDeLinhas ||
+			matriz.getQuantidadeColunas() != quantidadeDeColunas) throw(2);
+
+		for(int linha=0;linha<quantidadeDeLinhas;linha++)
+			for(int coluna=0;coluna<quantidadeDeColunas;coluna++){
+
+				if(this->getElemento(linha,coluna) != matriz.getElemento(linha,coluna))
+					return false;
+			}
+		return true;
+
+	}catch(int valorErro){
+		throw valorErro;
+	}
+
+}
+
+bool Matriz::operator !=(Matriz const &matriz)const{
+	try{
+		if(		matriz.getQuantidadeLinhas()!= quantidadeDeLinhas ||
+			matriz.getQuantidadeColunas() != quantidadeDeColunas) throw(2);
+
+		for(int linha=0;linha<quantidadeDeLinhas;linha++)
+			for(int coluna=0;coluna<quantidadeDeColunas;coluna++){
+
+				if(this->getElemento(linha,coluna) == matriz.getElemento(linha,coluna))
+					return false;
+			}
+		return true;
+
+	}catch(int valorErro){
+		throw valorErro;
+	}
+
+}
+
+
+
+Matriz *Matriz::operator+ (Matriz const &matriz)const{
+	try{
+		if(		matriz.getQuantidadeLinhas()!= quantidadeDeLinhas ||
+				matriz.getQuantidadeColunas() != quantidadeDeColunas) throw (2);
+
+		Matriz *matAdicao= new Matriz(quantidadeDeLinhas,quantidadeDeColunas);
+		for(int linha=0;linha<quantidadeDeLinhas;linha++)
+			for(int coluna=0;coluna<quantidadeDeColunas;coluna++){
+				int elemento = this->getElemento(linha,coluna)+matriz.getElemento(linha,coluna);
+				matAdicao->setElemento(linha,coluna,elemento);
+			}
+		return matAdicao;
+
+	}catch(int valorErro){
+		throw valorErro;
+	}
+	catch(std::bad_alloc&){
+		throw (0);
+	}
+}
+
+Matriz *Matriz::operator-(Matriz const &matriz)const{
+	try{
+		if(		matriz.getQuantidadeLinhas()!= quantidadeDeLinhas ||
+				matriz.getQuantidadeColunas() != quantidadeDeColunas) throw (2);
+
+		Matriz *matSub = new Matriz(this->quantidadeDeLinhas,this->quantidadeDeColunas);
+		for(int linha=0;linha<quantidadeDeLinhas;linha++)
+			for(int coluna=0;coluna<quantidadeDeColunas;coluna++){
+				matSub->setElemento(linha,coluna,this->getElemento(linha,coluna) - matriz.getElemento(linha,coluna));
+			}
+
+	return matSub;
+
+	}catch(int valorErro){
+		throw valorErro;
+	}
+	catch(std::bad_alloc&){
+		throw (0);
+	}
+
+}
+
+Matriz *Matriz::operator* (Matriz const &matriz)const{
+    try{
+        if(matriz.getQuantidadeLinhas() != quantidadeDeColunas) throw (2);
+
+        Matriz *matrizMultiplicacao= new Matriz(quantidadeDeLinhas,matriz.getQuantidadeColunas());
+
+        for(int linha=0;linha<quantidadeDeLinhas;linha++)
+            for(int coluna=0;coluna<matriz.getQuantidadeColunas();coluna++){
+                int elemento = 0;
+                matrizMultiplicacao->setElemento(linha,coluna,elemento);
+                    for (int x=0;x<quantidadeDeColunas;x++){
+                    elemento = elemento + this->getElemento(linha,x)*matriz.getElemento(x,coluna);
+                    matrizMultiplicacao->setElemento(linha,coluna,elemento);
+
+                    }
+             }
+
+        return matrizMultiplicacao;
+
+    }catch(int valorErro){
+        throw valorErro;
+    }
+    catch(std::bad_alloc&){
+            throw (0);
+        }
+}
+
+bool Matriz::eMatrizTriangularSuperior()const{
+	try{
+		if(this->quantidadeDeLinhas != this->quantidadeDeColunas) throw(5);
+
+		for(int linha=0;linha<quantidadeDeLinhas;linha++)
+			for(int coluna=0;coluna<quantidadeDeColunas;coluna++){
+				if( linha > coluna)
+					if(this->getElemento(linha,coluna) != 0)
+						return false;
+			}
+		return true;
+
+	}catch(int valorErro){
+		throw valorErro;
+	}
+}
+
+bool Matriz::eMatrizTriangularInferior()const{
+	try{
+		if(this->quantidadeDeLinhas != this->quantidadeDeColunas) throw(5);
+
+		for(int linha=0;linha<quantidadeDeLinhas;linha++)
+			for(int coluna=0;coluna<quantidadeDeColunas;coluna++){
+				if( linha > coluna)
+					if(this->getElemento(linha,coluna) != 0)
+						return false;
+			}
+		return true;
+
+	}catch(int valorErro){
+		throw valorErro;
+	}
+}
+
+bool Matriz::eMatrizIdentidade()const{
+	try{
+		if(this->quantidadeDeLinhas != this->quantidadeDeColunas) throw(5);
+
+		for(int linha=0;linha<quantidadeDeLinhas;linha++)
+			for(int coluna=0;coluna<quantidadeDeColunas;coluna++){ //  |10000|
+				if(linha == coluna){							//     |01000|
+					if(this->getElemento(linha,coluna) != 1)	//     |00100|
+						return false;							//     |00010|
+				}												//     |00001|
+				else{
+					if(this->getElemento(linha,coluna) != 0)
+						return false;
+				}
+			}
+
+		return true;
+
+	}catch(int valorErro){
+		throw valorErro;
+	}
+}
+
+Matriz *Matriz::multiplicarPorK(int k)const{
+	try{
+		Matriz *mat = new Matriz(this->quantidadeDeLinhas,this->quantidadeDeColunas);
+
+		for(int linha=0;linha<quantidadeDeLinhas;linha++)
+			for(int coluna=0;coluna<quantidadeDeColunas;coluna++){
+				mat->setElemento(linha,coluna,this->getElemento(linha,coluna)*k);
+			}
+
+		return mat;
+	}catch(int valorErro){
+		throw valorErro;
+	}
+	catch(std::bad_alloc&){
+		throw(0);
+	}
+
+
+}
+
+Matriz *Matriz::matrizTransposta()const{
+	try{
+
+		Matriz *mat = new Matriz(this->quantidadeDeLinhas,this->quantidadeDeColunas);
+
+	for(int linha=0;linha<quantidadeDeLinhas;linha++)
+		for(int coluna=0;coluna<quantidadeDeColunas;coluna++){
+			mat->setElemento(coluna,linha,this->getElemento(linha,coluna));
+			// inverte linha,coluna POR coluna,linha;
+		}
+	return mat;
+
+	}catch(int valorErro){
+		throw valorErro;
+	}
+	catch(std::bad_alloc&){
+		throw(0);
+	}
+}
+
+
+bool Matriz::eMatrizSimetrica()const{
+	try{
+
+		Matriz *mat = new Matriz(this->quantidadeDeLinhas,this->quantidadeDeColunas);
+
+		mat = this->matrizTransposta();
+
+		if( (*this == *mat))// usando sobrecarga
+			return true;
+		else
+			return false;
+
+	}catch(int valorErro){
+		throw valorErro;
+	}
+	catch(std::bad_alloc&){
+		throw(0);
+	}
+
+}
+
+bool Matriz::eMatrizAntiSimetrica()const{
+try{
+
+	Matriz *matTrans = new Matriz(this->quantidadeDeLinhas,this->quantidadeDeColunas);
+	Matriz *matOposta = new Matriz(this->quantidadeDeLinhas,this->quantidadeDeColunas);
+
+	matTrans = this->matrizTransposta();
+
+	for(int linha=0;linha<quantidadeDeLinhas;linha++)
+		for(int coluna=0;coluna<quantidadeDeColunas;coluna++){
+			int inverso = this->getElemento(linha,coluna)*-1;
+			matOposta->setElemento(linha,coluna,inverso);
+		}
+
+	if(*matTrans == *matOposta)
+		return true;
+
+		return false;
+
+	}catch(int valorErro){
+		throw valorErro;
+	}
+	catch(std::bad_alloc&){
+		throw(0);
+	}
+}
+
+bool Matriz::eMatrizDePermutacao()const{
+	try{
+		int aux=0;
+		for(int linha=0;linha<quantidadeDeLinhas;linha++){
+			for(int coluna=0;coluna<quantidadeDeColunas;coluna++){
+				if( this->getElemento(linha,coluna) != 0 && this->getElemento(linha,coluna) !=1 )
+					return false;
+				else
+					aux=getElemento(linha,coluna)+aux;
+			}
+			if(aux!=1)return false;
+			aux=0;
+		}
+
+		for(int coluna=0;coluna<quantidadeDeColunas;coluna++){
+				for(int linha=0;linha<quantidadeDeLinhas;linha++){
+					aux=getElemento(linha,coluna)+aux;
+					}
+				if(aux!=1)return false;
+				aux=0;
+		}
+
+
+		return true;
+
+
+
+	}catch(int valorErro){
+		throw valorErro;
+	}
+}
+
+bool Matriz::eMatrizOrtagonal()const{
+	try{
+	if(this->quantidadeDeLinhas != this->quantidadeDeColunas) throw (2);
+
+	Matriz *matTrans = new Matriz(this->quantidadeDeLinhas,this->quantidadeDeColunas);
+	Matriz *matResult = new Matriz(this->quantidadeDeLinhas,this->quantidadeDeColunas);
+
+	*matResult = (*matTrans) * (*this);
+
+	if(matResult->eMatrizIdentidade())
+		return true;
+
+	return false;
+
+	}catch(int valorErro){
+		throw valorErro;
+	}
+	catch(std::bad_alloc&){
+		throw (0);
+	}
+}
+
+
+
+}

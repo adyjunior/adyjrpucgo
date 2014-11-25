@@ -1,0 +1,10 @@
+9
+Matriz nao foi alocada dinamicamente
+Linha ou coluna fora do intervalo valido
+Quantidade de Linha e/ou Colunas diferentes
+Erro de endereco no parametro ponteiro da matriz
+Arquivo nao pode ser aberto
+A matriz nao eh quadrada
+Impossivel de realizar operacao, Exponencial negativo
+Arquivo nao pode ser deletado
+Apenas matrizes com mais de duas linhas podem ser operadas

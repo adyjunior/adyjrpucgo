@@ -1,0 +1,15 @@
+9
+Caracter invalido Digitado no campo de numeral 0
+CPF invalido 1   Classe cpf
+Data invalida 2  Clase data
+Posicao digitada esta fora do intervalo da string 3   ->Classe cdc
+Arquivo nao pode ser aberto 4 -> classe persistencia
+Nome nao encontrado no arquivo 5   -> Classe persistencia
+Caracter digitado nao é um numero 6  -> classe Cdc
+Cpf é obrigatorio para maiores de 18 anos 7 -> classe Controle
+Campo telefone é obrigatorio 8 -> classe Controle
+Campo Data de nascimento é obrigatorio 9 -> classe Controle
+Paciente ja existe 10 -> classe Controle
+Paciente nao existe 11 -> classe Controle
+Objeto nao pode ser alocado dinamicamente 12 -> classe Persistencia NEW
+A lista esta vazia 13 -> classe Iterator

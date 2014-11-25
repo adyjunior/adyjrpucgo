@@ -1,0 +1,29 @@
+#ifndef ERROS_H_
+#define ERROS_H_
+#include<string>
+
+namespace PC3 {
+
+class ERROS {
+//Atributo
+private:
+		int tamanho;
+		std::string strErro[];
+		static ERROS *instancia;
+		ERROS();
+public:
+
+	~ERROS(){};
+	std::string getErro(int erro)const{return strErro[erro];}
+	static ERROS *getInstancia(){
+		if(!instancia)
+			instancia = new ERROS();
+
+		return instancia;
+	}
+	std::string buscarErros()const;
+};
+
+}
+
+#endif /* ERROS_H_ */

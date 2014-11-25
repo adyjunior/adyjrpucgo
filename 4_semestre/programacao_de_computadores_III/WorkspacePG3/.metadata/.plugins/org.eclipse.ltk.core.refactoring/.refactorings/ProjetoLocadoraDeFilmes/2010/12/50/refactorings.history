@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;ProjetoLocadoraDeFilmes/MapeadorDeDadosFilmes.cpp&apos; to &apos;MapeadorDeDadosFilme.cpp&apos;" description="Rename resource &apos;MapeadorDeDadosFilmes.cpp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="MapeadorDeDadosFilmes.cpp" name="MapeadorDeDadosFilme.cpp" stamp="1292075833074" updateReferences="true"/>
+</session>
